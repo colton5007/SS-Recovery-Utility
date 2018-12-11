@@ -1,5 +1,5 @@
 import datetime
-import subprocess
+import os
 from datetime import timedelta
 
 print('     Welcome to the SS Data Recovery Utility     ')
@@ -27,9 +27,9 @@ else:
 	date_s = d_selection
 
 year,month,day = date_s.split('-')
-s1 = "sed -n '/%s\\-%s\\-%s/," % (year, month, day)
-s1 = s1 + r"%p' /var/log/stream.log | sudo tee data_log 2>&1 >/dev/null"
-subprocess.call(s1.split(' '))
+s1 = "sed -n '/%s\\-%s\\-%s/,$p' /var/log/stream.log | sudo tee data_log 2>&1 >/dev/null" % (year,month,day)
+print(s1)
+os.system(s1)
 
 with open("data_log") as infile:
     for line in infile:
