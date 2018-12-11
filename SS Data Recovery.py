@@ -27,7 +27,7 @@ else:
 	date_s = d_selection
 
 year,month,day = date_s.split('-')
-s1 = "sed -n '/%s\\-%s\\-%s/,$p' /var/log/stream.log | sudo tee data_log 2>&1 >/dev/null" % (year,month,day)
+s1 = "sed -n '/%s-%s-%s /p' /var/log/stream.log | sudo tee data_log 2>&1 >/dev/null" % (year,month,day)
 print(s1)
 os.system(s1)
 
