@@ -27,7 +27,9 @@ else:
 	date_s = d_selection
 
 year,month,day = date_s.split('-')
-subprocess.call(['sed', '-n', ('/%s\\-%s\\-%s/,' % (year, month, day)) + '%' + 'p', '/var/log/strem.log', '|', 'sudo', 'tee', 'data_log', '2>&1', '>/dev/null'])
+s1 = "sed -n '/%s\\-%s\\-%s/," % (year, month, day)
+s1 = s1 + r"%p' /var/log/stream.log | sudo tee data_log 2>&1 >/dev/null"
+subprocess.call(s1.split(' '))
 
 with open("data_log") as infile:
     for line in infile:
